@@ -142,6 +142,11 @@ DataGridRaw.propTypes = {
    */
   disableExtendRowFullWidth: PropTypes.bool,
   /**
+   * If `true`, multiple selection using the CTRL or CMD key is disabled.
+   * @default false
+   */
+  disableMultipleSelection: PropTypes.bool,
+  /**
    * If `true`, the selection on click on a row or cell is disabled.
    * @default false
    */
@@ -570,28 +575,11 @@ DataGridRaw.propTypes = {
   /**
    * Set the selection model of the grid.
    */
-  selectionModel: chainPropTypes(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
-    (props: any) => {
-      if (
-        !props.checkboxSelection &&
-        Array.isArray(props.selectionModel) &&
-        props.selectionModel.length > 1
-      ) {
-        return new Error(
-          [
-            `MUI: \`<DataGrid selectionModel={${JSON.stringify(
-              props.selectionModel,
-            )}} />\` is not a valid prop.`,
-            'selectionModel can only be of 1 item in DataGrid.',
-            '',
-            'You need to upgrade to the DataGridPro component to unlock multiple selection.',
-          ].join('\n'),
-        );
-      }
-      return null;
-    },
-  ),
+  selectionModel: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired),
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   /**
    * If `true`, the right border of the cells are displayed.
    * @default false

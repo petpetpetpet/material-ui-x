@@ -13,7 +13,6 @@ export type DataGridProps = Omit<
   | 'disableColumnReorder'
   | 'disableMultipleColumnsFiltering'
   | 'disableMultipleColumnsSorting'
-  | 'disableMultipleSelection'
   | 'throttleRowsMs'
   | 'hideFooterRowCount'
   | 'options'
